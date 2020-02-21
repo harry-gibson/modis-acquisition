@@ -264,12 +264,16 @@ def get_modisfiles(username, password, platform, product, year, tile, proxy,
     dates = parse_modis_dates(url, dates, product, out_dir, checkExistingDates=checkExistingDates)
     them_urls = []
     for date in dates:
-        r = requests.get("%s%s" % (url, date), verify=False)
+        formatted = "%s%s" % (url, date)
+        r = requests.get(formatted, verify=False)
+        print(formatted)
         for line in r.text.split("\n"):
-            if line.decode().find(tile) >= 0 or tile == '*':
+            #print(line)
+            #if line is not None and line.decode().find(tile) >= 0 or tile == '*':
+            if line is not None :
                 if line.decode().find(".hdf")  >= 0:
                     fname = line.decode().split("href=")[1].split(">")[0].strip('"')                    
-                    if fname.endswith(".hdf.xml") and not get_xml:
+                    if fname.endswith(".hdf.xml") and 1: #not get_xml:
                         pass
                     else:
                         if not os.path.exists(os.path.join(out_dir, fname)):
@@ -277,7 +281,7 @@ def get_modisfiles(username, password, platform, product, year, tile, proxy,
                         else:
                             if verbose:
                                 LOG.info("File %s already present. Skipping" % fname)
-            
+    print("Attempting to download {0!s} files".format(len(them_urls)))        
     with requests.Session() as s:
         s.auth = (username, password)
         for the_url in them_urls:
@@ -319,7 +323,7 @@ if __name__ == "__main__":
     parser.add_option('-P', '--password', action="store", dest="password",
                       help="EarthData password")
     parser.add_option('-v', '--verbose', action='store',
-                      default=False, help='verbose output')
+                      default=True, help='verbose output')
     parser.add_option('-s', '--platform', action='store', dest="platform",
                       type=str, help='Platform type: MOLA, MOLT or MOTA')
     parser.add_option('-p', '--product', action='store', dest="product",

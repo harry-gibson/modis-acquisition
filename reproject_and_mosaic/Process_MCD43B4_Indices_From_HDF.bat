@@ -21,15 +21,15 @@ REM bearing in mind the space on memdisk used as well, which is the HDF files fo
 REM Having it as big as possible minimises disk access i.e. it writes everything in one bunch at the end 
 REM of calculations. 8Gb cache plus 1.5Gb memdisk plus 1Gb warp memory is safe and efficient for 4 processes 
 REM on a 64Gb machine, 12ishGb may be slightly faster
-set GDAL_CACHEMAX=12000
+set GDAL_CACHEMAX=8000
 
 REM As far as possible use different drives for inputs, intermediates, temp, and outputs, for least disk contention.
 
 REM Define drive with data on
-set PROCESS_HOME=E:\MCD43B4
-set DATA_DIR=%PROCESS_HOME%\MCD43B4.005
+set PROCESS_HOME=G:\Extra\MCD43B4
+set DATA_DIR=%PROCESS_HOME%\MCD43B4_Extra_Inputs
 REM Define drive where output tiffs will go
-set OUTPUT_HOME=G:\MCD43B4
+set OUTPUT_HOME=G:\Extra\MCD43B4
 set OUTPUTDIR=%OUTPUT_HOME%\MCD43B4_Indices
 REM The vrts will have wrong file paths when moved (relative paths don't seem to trigger) but that's easily changed 
 REM in a text editor

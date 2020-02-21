@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
-# Name:     calculate_indices
-# Purpose:  Calculate vegetation indices (EVI, TCB, TCW) for a 7-band MCD43B4 image
+# Name:     calculate_temps
+# Purpose:  Calculate Land Surface Temperature (day and night) in celsius from a MOD11A2 image
 # Note:     This is a simple modification of gdal_calc.py to process native (hardcoded) 
 #           blocksizes of HDF files, for more efficient I/O, and using numexpr for calculation
 #           As such there's various redundant code in main and elsewhere
@@ -22,7 +22,7 @@ gdalDatasetsIn = []
 
 # scale conversion
 _MODIS_SCALE_CONST = 0.02
-_MODIS_OFFSET_CONST = -273
+_MODIS_OFFSET_CONST = -273.15
 
 ################################################################
 # set up output files
